@@ -1,5 +1,8 @@
 
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
+
+import axiosInstance from '../../Helpers/axiosInstace'
 
 const initialState = {
     isLoggedIn: localStorage.getItem('isLoggedIn') || false,
@@ -12,6 +15,22 @@ const authSlice = createSlice({
     initialState,
     reducers: {},
 });
+
+export const createAccount = createAsyncThunk("/signup", async (data) => {
+    try {
+        const res = axiosInstance.post('user/register', data);
+        toast.promise(res, {
+            loading: "Wait! creating your account",
+            success: (data) => {
+                return data?.data?.message;
+            },
+            error: "Failed to create account"
+        });
+        return (await res).data;
+    } catch(error) {
+        toast.error(error?.response?.data?.message);
+    }
+})
 
 // export const {} = authSlice.actions;
 export default authSlice.reducer;

@@ -14,10 +14,10 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: [process.env.FRONTEND_URL],
-    credentials: true
-}));
-
+    origin: 'http://localhost:5173', // Replace with the actual origin of your React app
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
