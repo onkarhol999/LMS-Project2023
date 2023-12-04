@@ -1,10 +1,20 @@
-import './App.css'
+
+import './App.css';
+
+import { Routes } from 'react-router-dom';
+
+import Footer from './Components/footer';
 
 function App() {
 
   return (
     <>
-      LMS
+   
+      {/* <Routes> */}
+
+
+      {/* </Routes> */}
+      <Footer/>
     </>
   )
 }
