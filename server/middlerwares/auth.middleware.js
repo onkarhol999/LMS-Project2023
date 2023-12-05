@@ -14,9 +14,9 @@ const isLoggedIn = async (req, res, next) => {
 
     next();
 }
-const authorizedRoles = (...roles) => async(req,res,next) =>{
-   const currentUserRole = req.user.roles;
-   if(roles.includes(currentUserRole)){
+const authorizedRoles = (...role) => async(req,res,next) =>{
+   const currentUserRole = req.user.role;
+   if(!role.includes(currentUserRole)){
     return next(new AppError('You do not have permission to access this',403))
    }
    next();
@@ -25,7 +25,7 @@ const authorizedRoles = (...roles) => async(req,res,next) =>{
 const authorizeSubscriber = async(req,res,next) => {
 
      const subscription = req.user.subscription;
-     const currentUserRole = req.user.roles;
+     const currentUserRole = req.user.role;
      if(currentUserRole !== 'ADMIN' && subscription !== 'active'){
         return next(new AppError('Please Subscribe to access this route..',403))
      }
