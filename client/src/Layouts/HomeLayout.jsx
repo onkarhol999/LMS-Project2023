@@ -38,7 +38,7 @@ function HomeLayout({ children }) {
     }
 
     return (
-        <div className="min-h-[90vh]">
+        <div className="min-h-[90vh] bg-gray-900">
             <div className="drawer absolute left-0 z-50 w-fit">
                 <input className="drawer-toggle" id="my-drawer" type="checkbox" />
                 <div className="drawer-content">
@@ -53,36 +53,36 @@ function HomeLayout({ children }) {
                 <div className="drawer-side w-0">
                     <label htmlFor="my-drawer" className="drawer-overlay">
                     </label>
-                    <ul className="menu p-4 w-48 h-[100%] sm:w-80 bg-base-200 text-base-content relative">
-                        <li className="w-fit absolute right-2 z-50">
+                    <ul className="menu p-4 w-48 h-[100%] sm:w-80 bg-gray-900 text-base-content relative">
+                        <li className="w-fit absolute right-2 z-50 text-white">
                             <button onClick={hideDrawer}>
                                 <AiFillCloseCircle size={24} />
                             </button>
                         </li>
-                        <li>
+                        <li className='text-white'>
                             <Link to="/">Home</Link>
                         </li>
 
                         {isLoggedIn && role === 'ADMIN' && (
-                            <li>
+                            <li className='text-white'>
                                 <Link to="/admin/dashboard"> Admin DashBoard</Link>
                             </li>
                         )}
                         {isLoggedIn && role === 'ADMIN' && (
-                            <li>
+                            <li className='text-white'>
                                 <Link to="/course/create"> Create new course</Link>
                             </li>
                         )}
 
-                        <li>
+                        <li className='text-white'>
                             <Link to="/courses">All Courses</Link>
                         </li>
 
-                        <li>
+                        <li className='text-white'>
                             <Link to="/contact">Contact Us</Link>
                         </li>
 
-                        <li>
+                        <li className='text-white'>
                             <Link to="/about">About Us</Link>
                         </li>
 
@@ -90,10 +90,10 @@ function HomeLayout({ children }) {
                             <li className="absolute bottom-4 w-[90%]">
                                 <div className="w-full flex items-center justify-center">
                                     <button className='btn-primary px-4 py-1 font-semibold rounded-md w-full'>
-                                        <Link to="/login">Login</Link>
+                                        <Link to="/login" className='text-white'>Login</Link>
                                     </button>
                                     <button className='btn-secondary px-4 py-1 font-semibold rounded-md w-full'>
-                                        <Link to="/signup">Signup</Link>
+                                        <Link to="/signup" className='text-white'>Signup</Link>
                                     </button>
                                 </div>
                             </li>
