@@ -16,7 +16,7 @@ const isLoggedIn = async (req, res, next) => {
 }
 const authorizedRoles = (...roles) => async(req,res,next) =>{
    const currentUserRole = req.user.roles;
-   if(!roles.includes(currentUserRole)){
+   if(roles.includes(currentUserRole)){
     return next(new AppError('You do not have permission to access this',403))
    }
    next();

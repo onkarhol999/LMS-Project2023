@@ -50,8 +50,8 @@ const createCourse = async (req, res, next) => {
       category,
       createdBy,
       thumbnail: {
-        public_id: 'Dummy',
-        secure_url: 'Dummy',
+        public_id: 'https://tse2.mm.bing.net/th?id=OIP.SG2CLjQ42cWHcGvF4GGKHwHaEA&pid=Api&P=0&h=180',
+        secure_url: 'https://tse2.mm.bing.net/th?id=OIP.SG2CLjQ42cWHcGvF4GGKHwHaEA&pid=Api&P=0&h=180',
       },
     });
 
@@ -68,7 +68,7 @@ const createCourse = async (req, res, next) => {
 
       if (result) {
         course.thumbnail.public_id = result.public_id;
-        course.thumbnail.secure_url = result.secure_url;
+        course.thumbnail.secure_url = result.secure_url ;
       }
 
       fs.rmSync(`uploads/${req.file.filename}`); // Use fs.rmSync for synchronous file removal

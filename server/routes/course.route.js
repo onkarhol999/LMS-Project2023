@@ -11,7 +11,6 @@ router.route('/')
     .post(
         isLoggedIn,
         authorizedRoles('ADMIN'),
-        upload.single('lecture'),
         createCourse
         );
     
