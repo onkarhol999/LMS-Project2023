@@ -12,14 +12,14 @@ function Profile() {
     const navigate = useNavigate();
     const userData = useSelector((state) => state?.auth?.data);
 
-    async function handleCancellation() {
-        toast("Initiating cancellation");
-        await dispatch(cancelCourseBundle());
-        await dispatch(getUserData());
-        toast.success("Cancellation completed!");
-        navigate("/");
+    // async function handleCancellation() {
+    //     toast("Initiating cancellation");
+    //     await dispatch(cancelCourseBundle());
+    //     await dispatch(getUserData());
+    //     toast.success("Cancellation completed!");
+    //     navigate("/");
 
-    }
+    // }
     return (
         <HomeLayout>
             <div className="min-h-[90vh] flex items-center justify-center">
