@@ -12,7 +12,8 @@ router.route('/')
         isLoggedIn,
         authorizedRoles('ADMIN'),
         createCourse
-        );
+    );
+    
     
     
 

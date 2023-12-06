@@ -3,15 +3,18 @@ import './App.css';
 
 import { Route, Routes } from 'react-router-dom';
 
+import RequireAuth from './Components/Auth/RequiredAuth';
 import AboutUs from './Pages/AboutUs';
 import Contact from './Pages/Contact';
 import CourseDescription from './Pages/Course/CourseDescription';
 import CourseList from './Pages/Course/CourseList';
+import CreateCourse from './Pages/Course/CreateCourse';
 import Denied from './Pages/Denied';
 import HomePage from './Pages/HomePage'
 import Login from './Pages/Login'
 import NotFound from './Pages/NotFound';
 import Signup from './Pages/Signup';
+import Profile from './Pages/User/Profile';
 
 // import Footer from './Components/footer';
 
@@ -26,7 +29,13 @@ function App() {
           <Route path='/signup' element={<Signup/>}></Route>
           <Route path='/contact' element={<Contact/>}></Route>
           <Route path='/course/description/' element={<CourseDescription/>}></Route>
-
+                
+          <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
+               <Route path="/course/create" element={<CreateCourse />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["ADMIN","USER"]} />}>
+               <Route path="/user/profile" element={<Profile />} />
+          </Route>
           <Route path='/denied' element={<Denied/>}></Route>
           <Route path='/courses' element={<CourseList/>}></Route>
           <Route path='/login' element={<Login/>}></Route>
