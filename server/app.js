@@ -8,16 +8,18 @@ import errorMiddleware from './middlerwares/error.middleware.js';
 import courseRoutes from './routes/course.route.js';
 import paymentRoutes from './routes/payment.route.js'
 // Use CommonJS syntax for importing course.controller.js
-//const courseController = require('./controllers/course.controller.js');
+// const courseController = require('./controllers/course.controller.js');
 const app = express();
 
 app.use(express.json());
 
-app.use(cors({
-    origin: 'http://localhost:5173', // Replace with the actual origin of your React app
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-  }));
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Credentials', 'true'); // Set the header to 'true'
+    next();
+  });
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 

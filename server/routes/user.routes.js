@@ -13,6 +13,7 @@ router.get('/me',isLoggedIn,getProfile);
 router.post('/reset',forgotPassword);
 router.post('/reset/:resetToken',resetPassword);
 router.post('/changed-password',isLoggedIn, changedPassword);
-router.put('/update',isLoggedIn, upload.single("avatar"), updateUser)
+router.put('/update/:userId',isLoggedIn, upload.single("avatar"), updateUser)
 
 export default router;
+

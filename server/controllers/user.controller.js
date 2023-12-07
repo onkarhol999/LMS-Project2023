@@ -136,18 +136,18 @@ const login = async (req, res, next) => {
 
 // Logout route
 const logout = (req, res) => {
-  // Clear the token cookie
-  res.cookie('token', null, {
+  // Clear the token cookie on the client side
+  res.clearCookie('token', {
+    httpOnly: true,
     secure: true,
-    maxAge: 0,
-    httpOnly: true
   });
 
   // Send the response
   res.status(200).json({
     success: true,
-    message: 'User logged out successfully'
+    message: 'User logged out successfully',
   });
+
 };
 
 // Get user profile route
@@ -266,57 +266,62 @@ const changedPassword = async(req,res,next) => {
     });
 };
 
-const updateUser = async(req,res,next)=>{
-       const { fullName } = req.body;
-       const { id } = req.user.id;
+const updateUser = async (req, res, next) => {
+  try {
+    const { fullName } = req.body;
+    const { id } = req.user; // Use req.user directly
 
-       const user = await User.findById(id);
+    const user = await User.findById(id);
 
-       if(!user){
-        return next(
-          new AppError('User does not exist', 400)
-        )
-       }
-       if(req.fullName){
-        user.fullName = fullName;
-       }
-       if(req.file){
+    if (!user) {
+      return next(new AppError('User does not exist', 400));
+    }
+
+    if (fullName) {
+      user.fullName = fullName;
+    }
+
+    if (req.file) {
+      // Remove the existing avatar from Cloudinary
+      if (user.avatar.public_id) {
         await cloudinary.v2.uploader.destroy(user.avatar.public_id);
-        try {
-          // Upload file to Cloudinary
-          const result = await cloudinary.v2.uploader.upload(req.file.path, {
-            folder: 'lms',
-            width: 250,
-            height: 250,
-            gravity: 'faces',
-            crop: 'fill',
-          });
-    
-          // Update user's avatar details based on Cloudinary upload result
-          if (result) {
-            user.avatar = {
-              public_id: result.public_id,
-              secure_id: result.secure_url, // Change this to result.secure_id if Cloudinary provides such an identifier
-            };
-    
-            // Remove file from local storage
-            await fs.rm(req.file.path);
-          }
-        } catch (error) {
-          return next(
-            new AppError(
-              error.message || 'File not uploaded, please try again',
-              400
-            )
-          );
+      }
+
+      try {
+        // Upload file to Cloudinary
+        const result = await cloudinary.v2.uploader.upload(req.file.path, {
+          folder: 'lms',
+          width: 250,
+          height: 250,
+          gravity: 'faces',
+          crop: 'fill',
+        });
+
+        // Update user's avatar details based on Cloudinary upload result
+        if (result) {
+          user.avatar = {
+            public_id: result.public_id,
+            secure_id: result.secure_url,
+          };
+
+          // Remove file from local storage
+          await fs.promises.unlink(req.file.path);
         }
-       }
-       await user.save();
-       res.status(200).json({
-        success: true,
-        message: 'User deatails updated successfully..!'
-       })
-}
+      } catch (error) {
+        return next(new AppError(error.message || 'File not uploaded, please try again', 400));
+      }
+    }
+
+    await user.save();
+    res.status(200).json({
+      success: true,
+      message: 'User details updated successfully!',
+    });
+  } catch (error) {
+    return next(new AppError(error.message || 'Internal Server Error', 500));
+  }
+};
+
 // Export the route handlers
 export {
    register,
