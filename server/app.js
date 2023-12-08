@@ -5,8 +5,8 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import userRoute from './routes/user.routes.js';
 import errorMiddleware from './middlerwares/error.middleware.js';
-import courseRoutes from './routes/course.route.js';
-import paymentRoutes from './routes/payment.route.js'
+import courseRoutes from './routes/course.routes.js';
+import paymentRoutes from './routes/payment.routes.js'
 // Use CommonJS syntax for importing course.controller.js
 // const courseController = require('./controllers/course.controller.js');
 const app = express();
