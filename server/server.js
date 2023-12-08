@@ -4,17 +4,18 @@ config();
 
 import app from './app.js'; // Move this line after dotenv configuration
 import connectionToDB from './config/dbConnection.js';
-import cloudinary from 'cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
 import Razorpay from 'razorpay';
 
 const PORT = process.env.PORT || 3000; // or 5000
 
 // cloudinary configuration
-cloudinary.v2.config({
+cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+export default cloudinary;
 
 // Razorpay configuration
 export const razorpay = new Razorpay({

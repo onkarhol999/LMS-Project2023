@@ -17,11 +17,16 @@ router.route('/')
     
     
 
-router.route('/:id')  // Corrected route parameter placeholder
-        .get(isLoggedIn,authorizeSubscriber, getLectureByCourseId)
-        .put(isLoggedIn,updateCourse,authorizedRoles('ADMIN'))
-        .delete(isLoggedIn,removeCourse,authorizedRoles('ADMIN'))
-        .post(isLoggedIn,addLectureToCourseById,authorizedRoles('ADMIN'),upload.single('lecture'));
+    router.route('/:id')
+    .get(isLoggedIn, authorizeSubscriber, getLectureByCourseId)
+    .put(isLoggedIn, updateCourse, authorizedRoles('ADMIN'))
+    .delete(isLoggedIn, removeCourse, authorizedRoles('ADMIN'))
+    .post(
+        isLoggedIn,
+        addLectureToCourseById,
+        authorizedRoles('ADMIN'),
+        upload.single('lecture')
+    );
     
 export default router;
 

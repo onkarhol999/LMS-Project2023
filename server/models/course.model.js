@@ -29,14 +29,14 @@ const courseSchema = new Schema({
     },
     lectures: [
         {
-            title: String,
-            description: String,
-            lecture: {
-                public_id: String,
-                secure_url: String
-            }
-        }
-    ],
+          title: String,
+          description: String,
+          lecture: {
+            public_id: String,
+            secure_url: String,
+          },
+        },
+      ],
     numberOfLectures: {
         type: Number,
         default: 0
