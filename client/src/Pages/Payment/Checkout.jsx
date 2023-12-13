@@ -54,7 +54,7 @@ function Checkout() {
         await dispatch(getRazorPayId());
         await dispatch(purchaseCourseBundle());
     }
-
+              
     useEffect(() => {
         load();
     }, []);

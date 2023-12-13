@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
-import axiosInstance from "../../Helpers/axiosInstance";
+import axiosInstance from "../../Helpers/axiosInstace";
+
+// import axiosInstance from "../../Helpers/axiosInstance";
+// import axiosInstance from '../../Helpers/axiosInstace'
 const initialState = {
     allUsersCount: 10,
     subscribedCount: 4
@@ -13,7 +16,7 @@ export const getStatsData = createAsyncThunk("stats/get", async () => {
         toast.promise(response, {
             loading: "Getting the stats...",
             success: (data) => {
-                return data?.data?.message
+                return data?.data?.message || 10
             },
             error: "Failed to load data stats"
         });
@@ -29,8 +32,8 @@ const statSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getStatsData.fulfilled, (state, action) => {
-            state.allUsersCount = action?.payload?.allUsersCount;
-            state.subscribedCount =  action?.payload?.subscribedUsersCount;
+            state.allUsersCount = action?.payload?.allUsersCount || 10;
+            state.subscribedCount =  action?.payload?.subscribedUsersCount || 7;
         })
     }
 });

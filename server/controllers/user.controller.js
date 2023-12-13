@@ -195,7 +195,7 @@ const forgotPassword = async(req,res, next)=>{
  const subject = 'Reset Password'
  const message = `You can reset your password by clicking <a href=${resetPasswordURL} target="_blank">Reset Password</a>\n If the above link not work for some reason then copy pest this link in new tab ${resetPasswordURL}`;
   try {
-    await sendEmail(email, subject, message);;
+    await sendEmail(email, subject, message);
 
     res.status(200).json({
       success: true,

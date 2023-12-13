@@ -55,7 +55,7 @@ function Contact() {
             );
         
             // Handle the response after the toast.promise
-            const contactResponse = response.data;
+            const contactResponse =await response.data;
             console.log(contactResponse);
         
             if (contactResponse.success) {
